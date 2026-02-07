@@ -19,16 +19,14 @@ app.use(express.json());
 app.use(cookieParser());
 
 const PORT = process.env.PORT || 5000;
-const MONGO_URI_USERS = process.env.MONGO_URI_USERS
-const MONGO_URI_EXPENSES = process.env.MONGO_URI_EXPENSES
+const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect(MONGO_URI_USERS)
-  .then(() => console.log(chalk.bold.green("Connected to MongoDB Users")))
-  .catch(err => console.log(chalk.bold.red("Failed to connect to MongoDB Users", err)));
-
-mongoose.connect(MONGO_URI_EXPENSES)
-  .then(() => console.log(chalk.bold.green("Connected to MongoDB Expenses")))
-  .catch(err => console.log(chalk.bold.red("Failed to connect to MongoDB Expenses", err)));
+mongoose.connect(MONGO_URI)
+  .then(() => console.log(chalk.green("✅ MongoDB Connected")))
+  .catch(err => {
+    console.error("❌ MongoDB Connection Failed:", err);
+    process.exit(1);
+  });
 
 //! ---------- Schemas ----------
 
